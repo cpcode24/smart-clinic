@@ -6,11 +6,11 @@
 This structure improves scalability, maintainability, and deployment flexibility. Each tier can be independently developed, tested, or scaled without impacting the others directly.
 
 ### Tech Stack
-_Spring MVC for server-rendered admin and doctor dashboards_
-_REST APIs for modular and scalable client-server communication_
-_Spring Data JPA for interacting with a MySQL database_
-_Spring Data MongoDB for storing flexible prescription records_
-_Spring Boot is developer-friendly, production-ready, and integrates easily with testing, validation, and containerization tools._
+* Spring MVC for server-rendered admin and doctor dashboards
+* REST APIs for modular and scalable client-server communication
+* Spring Data JPA for interacting with a MySQL database
+* Spring Data MongoDB for storing flexible prescription records
+* Spring Boot is developer-friendly, production-ready, and integrates easily with testing, validation, and containerization tools.
 
 ### REST APIs for scalable integration
 For modules like appointments, patient dashboards, and patient records, we expose RESTful APIs instead of using server-side views. REST allows external clients—such as mobile apps or future web apps—to communicate with the backend via lightweight HTTP and JSON.

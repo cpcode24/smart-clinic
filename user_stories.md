@@ -1,6 +1,6 @@
 ## User Story  
 
-*As an **admin**, you can:
+#### * As an **admin**, you can:
 
 1. Log into the portal with your username and password to manage the platform securely
 2. Change password when needed.
@@ -22,7 +22,7 @@
    * **Story Points:** 2
 
 
-*As a **patient**, you can:
+#### * As a **patient**, you can:
 
 1. View a list of doctors without logging in to explore options before registering
 2. Sign up using your email and password to book appointments
@@ -49,7 +49,7 @@
    * **Priority:** Low
    * **Story:** 2
 
-*As a **doctor**, you can:
+#### * As a **doctor**, you can:
 
 1. Log into the portal to manage your appointments
 2. Log out of the portal to protect my data

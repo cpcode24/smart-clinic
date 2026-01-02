@@ -47,8 +47,9 @@ We need the following tables for structured data:
 
 ### Unstructure data
 We need the following collections / documents for unstructured data: 
-1. Free-form doctor notes
-2. Optional patient feedback
-3. Prescription metadata
-4. File attachments
-5. Log records 
+1. doctor_notes
+2. patient_feedbacks
+3. Pprescriptions
+4. patient_attachments
+5. records
+6. system_logs

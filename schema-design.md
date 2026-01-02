@@ -3,12 +3,13 @@
 
 ### Structured data
 We need the following tables for structured data:
-*patients 
-*doctors
-*admin
-*appointments
-*clinic_locations
-*payments.
+1. patients 
+2. doctors
+3. admin
+4. appointments
+5. clinic_locations
+6. payments.
+7. users_sessions
 
 ### Table: patients
 - patient_id: INT, Primary Key, Auto Increment
@@ -46,8 +47,8 @@ We need the following tables for structured data:
 
 ### Unstructure data
 We need the following collections / documents for unstructured data: 
-*Free-form doctor notes
-*Optional patient feedback
-*Prescription metadata
-*File attachments
-*Log records 
+1. Free-form doctor notes
+2. Optional patient feedback
+3. Prescription metadata
+4. File attachments
+5. Log records 

@@ -1,6 +1,14 @@
 
 ## Tables
-We need the following tables: patients, doctors, appointments, admin, clinic_locations, payments.
+
+### Structured data
+We need the following tables for structured data:
+*patients 
+*doctors
+*admin
+*appointments
+*clinic_locations
+*payments.
 
 ### Table: patients
 - patient_id: INT, Primary Key, Auto Increment
@@ -35,3 +43,11 @@ We need the following tables: patients, doctors, appointments, admin, clinic_loc
 - patient_id: INT, Foreign Key → patients(id)
 - appointment_time: DATETIME, Not Null
 - status: INT (0 = Scheduled, 1 = Completed, 2 = Cancelled)
+
+### Unstructure data
+We need the following collections / documents for unstructured data: 
+*Free-form doctor notes
+*Optional patient feedback
+*Prescription metadata
+*File attachments
+*Log records 

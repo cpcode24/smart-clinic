@@ -1,7 +1,7 @@
 
-## Tables
+# Tables
 
-### Structured data
+## Structured Data
 We need the following tables for structured data:
 1. patients 
 2. doctors
@@ -103,7 +103,7 @@ We need the following tables for structured data:
 - appointment_time: DATETIME, Not Null
 - status: INT (0 = Scheduled, 1 = Completed, 2 = Cancelled)
 
-### Unstructure data
+## Unstructure Data
 We need the following collections / documents for unstructured data: 
 1. doctor_notes
 2. patient_feedbacks

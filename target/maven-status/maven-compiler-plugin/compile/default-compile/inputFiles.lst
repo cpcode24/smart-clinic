@@ -1,1 +1,11 @@
-/Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/SmartClinicApplication.java
+/Users/constant24/Desktop/clinic-management/src/main/java/com/cpagoui_code/smart_clinic/SmartClinicApplication.java
+/Users/constant24/Desktop/clinic-management/src/main/java/com/cpagoui_code/smart_clinic/data/entity/Admin.java
+/Users/constant24/Desktop/clinic-management/src/main/java/com/cpagoui_code/smart_clinic/data/entity/Appointment.java
+/Users/constant24/Desktop/clinic-management/src/main/java/com/cpagoui_code/smart_clinic/data/entity/Clinic.java
+/Users/constant24/Desktop/clinic-management/src/main/java/com/cpagoui_code/smart_clinic/data/entity/Doctor.java
+/Users/constant24/Desktop/clinic-management/src/main/java/com/cpagoui_code/smart_clinic/data/entity/Patient.java
+/Users/constant24/Desktop/clinic-management/src/main/java/com/cpagoui_code/smart_clinic/data/entity/Payment.java
+/Users/constant24/Desktop/clinic-management/src/main/java/com/cpagoui_code/smart_clinic/data/entity/Prescription.java
+/Users/constant24/Desktop/clinic-management/src/main/java/com/cpagoui_code/smart_clinic/data/repository/AppointmentRepository.java
+/Users/constant24/Desktop/clinic-management/src/main/java/com/cpagoui_code/smart_clinic/data/repository/DoctorRepository.java
+/Users/constant24/Desktop/clinic-management/src/main/java/com/cpagoui_code/smart_clinic/data/repository/PatientRepository.java

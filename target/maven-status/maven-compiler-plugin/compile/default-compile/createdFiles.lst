@@ -1,1 +1,11 @@
+com/cpagoui_code/smart_clinic/data/repository/DoctorRepository.class
+com/cpagoui_code/smart_clinic/data/entity/Prescription.class
+com/cpagoui_code/smart_clinic/data/entity/Payment.class
+com/cpagoui_code/smart_clinic/data/entity/Appointment.class
+com/cpagoui_code/smart_clinic/data/repository/PatientRepository.class
+com/cpagoui_code/smart_clinic/data/repository/AppointmentRepository.class
+com/cpagoui_code/smart_clinic/data/entity/Admin.class
+com/cpagoui_code/smart_clinic/data/entity/Doctor.class
+com/cpagoui_code/smart_clinic/data/entity/Clinic.class
+com/cpagoui_code/smart_clinic/data/entity/Patient.class
 com/cpagoui_code/smart_clinic/SmartClinicApplication.class

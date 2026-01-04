@@ -1,6 +1,7 @@
 package com.cpagoui_code.smart_clinic.data.entity;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -23,8 +24,19 @@ public class Appointment {
     @Future
     private LocalDateTime appointmentTime;
     private int status; // 0 = Scheduled, 1 = Completed
+    
     @Transient
     public LocalDateTime getEndTime() {
         return appointmentTime.plusHours(1);
+    }
+
+    @Transient
+    public LocalDateTime getAppointmentTime(){
+        return appointmentTime;
+    }
+
+    @Transient
+    public LocalTime getAppointmentTimeOnly(){
+        return appointmentTime.toLocalTime();
     }
 }

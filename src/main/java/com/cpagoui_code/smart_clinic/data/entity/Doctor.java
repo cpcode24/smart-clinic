@@ -1,8 +1,6 @@
 package com.cpagoui_code.smart_clinic.data.entity;
 import java.util.List;
 
-import org.antlr.v4.runtime.misc.NotNull;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.ElementCollection;
@@ -11,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -35,4 +34,6 @@ public class Doctor {
     private String phone;
     @ElementCollection
     private List<String> availableTimes;
+
+
 }

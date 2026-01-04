@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SmartClinicApplication<smart-clinic>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.cpagoui_code.smart_clinic.SmartClinicApplication",
+            "projectName": "smart-clinic",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

@@ -1,5 +1,5 @@
 
-# Tables
+# Schema Design: Tables & Collections
 
 ## Structured Data
 We need the following tables for structured data:

@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -35,8 +36,8 @@ public class Doctor {
     @ElementCollection
     private List<String> availableTimes;
 
-    @NotNull
-    private Clinic clinic;
+    @OneToMany(mappedBy = "doctor")
+    private List<Appointment> appointments;
 
 
 }

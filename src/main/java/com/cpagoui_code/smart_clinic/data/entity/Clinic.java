@@ -42,6 +42,5 @@ public class Clinic {
     @NotNull
     private String state;
 
-    @OneToMany(mappedBy = "clinic")
     private List<Doctor> doctors;
 }

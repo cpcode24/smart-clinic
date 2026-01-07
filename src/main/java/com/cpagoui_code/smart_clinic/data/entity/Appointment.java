@@ -11,6 +11,7 @@ import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotNull;
 
+
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

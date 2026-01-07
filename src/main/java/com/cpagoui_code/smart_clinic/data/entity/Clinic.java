@@ -31,6 +31,8 @@ public class Clinic {
     @NotNull
     @Size(min = 10, max = 100)
     private String address;
+
+    @NotNull
     private String phoneNumber;
 
     private int zipCode;
@@ -41,6 +43,5 @@ public class Clinic {
 
     @NotNull
     private String state;
-
-    private List<Doctor> doctors;
+    
 }

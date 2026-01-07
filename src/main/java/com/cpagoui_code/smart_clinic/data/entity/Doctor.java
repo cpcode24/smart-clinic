@@ -35,5 +35,8 @@ public class Doctor {
     @ElementCollection
     private List<String> availableTimes;
 
+    @NotNull
+    private Clinic clinic;
+
 
 }

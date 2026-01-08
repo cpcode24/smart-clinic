@@ -12,6 +12,7 @@
 
 package com.cpagoui_code.smart_clinic.data.entity;
 import java.util.List;
+import java.util.UUID;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ import jakarta.validation.constraints.Size;
 public class Clinic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long clinic_id;
+    private UUID clinicId;
     @NotNull
     private String clinicName;
     @NotNull

@@ -1,4 +1,6 @@
 package com.cpagoui_code.smart_clinic.data.entity;
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
@@ -15,15 +17,13 @@ import jakarta.validation.constraints.Size;
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private UUID patientId;
     @NotNull
     @Size(min = 3, max = 100)
     private String name;
     @Email
     @Size(min = 3, max = 100)
     private String email;
-    @NotNull(message = "Username cannot be null")
-    private String username;
     @Size(min = 6)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull

@@ -1,5 +1,7 @@
 package com.cpagoui_code.smart_clinic.data.entity;
 
+import java.util.UUID;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
@@ -15,7 +17,7 @@ import jakarta.validation.constraints.Size;
 public class Admin {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long adminId;
+    private UUID adminId;
     @NotNull(message = "Username cannot be null")
     private String username;
     @Email
@@ -31,10 +33,10 @@ public class Admin {
     private String password;
 
 
-    public Long getAdminId() {
+    public UUID getAdminId() {
         return adminId;
     }
-    public void setAdminId(Long id) {
+    public void setAdminId(UUID id) {
         this.adminId = id;
     }
     public String getUsername() {

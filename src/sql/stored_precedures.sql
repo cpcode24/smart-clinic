@@ -1,4 +1,4 @@
--- DELIMITER $$
+-- DELIMITER $$ --Uncomment this line if using a MySQL client
 
 CREATE PROCEDURE GetDoctorWithMostPatientsByYear(
     IN input_year INT
@@ -18,9 +18,9 @@ BEGIN
     LIMIT 1;
 END $$
 
--- DELIMITER ;
+-- DELIMITER ; --Uncomment this line if using a MySQL client
 
---DELIMITER $$
+--DELIMITER $$ --Uncomment this line if using a MySQL client
 
 CREATE PROCEDURE GetDoctorWithMostPatientsByMonth(
     IN input_month INT, 
@@ -42,4 +42,30 @@ BEGIN
     LIMIT 1;
 END $$
 
---DELIMITER ;
+--DELIMITER ; --Uncomment this line if using a MySQL client
+
+--DELIMITER $$ --Uncomment this line if using a MySQL client
+
+CREATE PROCEDURE GetDailyAppointmentReportByDoctor(
+    IN report_date DATE
+)
+BEGIN
+    SELECT 
+        d.name AS doctor_name,
+        a.appointment_time,
+        a.status,
+        p.name AS patient_name,
+        p.phone AS patient_phone
+    FROM 
+        appointment a
+    JOIN 
+        doctor d ON a.doctor_id = d.id
+    JOIN 
+        patient p ON a.patient_id = p.id
+    WHERE 
+        DATE(a.appointment_time) = report_date
+    ORDER BY 
+        d.name, a.appointment_time;
+-- END$$ --Uncomment this line if using a MySQL client
+
+--DELIMITER ; --Uncomment this line if using a MySQL client

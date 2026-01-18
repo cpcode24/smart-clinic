@@ -32,18 +32,18 @@ public class ClinicController {
     
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Clinic createProduct(@RequestBody Clinic clinic) {
+    public Clinic createClinic(@RequestBody Clinic clinic) {
         //TODO: process POST request
         log.info("Added clinic: {}", clinic);
         return clinicRepository.save(clinic);
     }
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Clinic getProduct(@PathVariable UUID id) {
-        Optional<Clinic> product = clinicRepository.findById(id);
-        if(product.isPresent()) {
+    public Clinic getClinic(@PathVariable UUID id) {
+        Optional<Clinic> clinic = clinicRepository.findById(id);
+        if(clinic.isPresent()) {
             log.info("Found clinic with ID: {}", id);
-            return product.get();
+            return clinic.get();
         } else {
             log.warn("No clinic found with ID: {}", id);
             throw new NotFoundException("Clinic with ID " + id + " not found");

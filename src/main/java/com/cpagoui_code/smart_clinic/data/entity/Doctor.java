@@ -96,5 +96,9 @@ public class Doctor {
         this.appointments = appointments;
     }
 
+    public Object getId() {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 
 }

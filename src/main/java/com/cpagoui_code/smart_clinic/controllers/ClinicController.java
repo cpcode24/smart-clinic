@@ -25,11 +25,22 @@ public class ClinicController {
     
     private final ClinicRepository clinicRepository;
 
+    /**
+     * Constructs a ClinicController with the provided repository.
+     *
+     * @param clinicRepository repository used to manage clinics
+     */
     public ClinicController(ClinicRepository clinicRepository) {
         super();
         this.clinicRepository = clinicRepository;
     }
     
+    /**
+     * Create a new clinic and persist it.
+     *
+     * @param clinic Clinic object to create
+     * @return the saved Clinic entity
+     */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Clinic createClinic(@RequestBody Clinic clinic) {
@@ -37,6 +48,14 @@ public class ClinicController {
         log.info("Added clinic: {}", clinic);
         return clinicRepository.save(clinic);
     }
+
+    /**
+     * Retrieve a clinic by its UUID.
+     *
+     * @param id UUID of the clinic to fetch
+     * @return the found Clinic
+     * @throws NotFoundException if a clinic with the given id does not exist
+     */
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Clinic getClinic(@PathVariable UUID id) {

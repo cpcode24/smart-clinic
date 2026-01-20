@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.UUID;
 
+import org.springframework.cglib.core.Local;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -37,9 +39,28 @@ public class Appointment {
     public LocalDateTime getAppointmentTime(){
         return appointmentTime;
     }
-
+    @Transient
+    public void setAppointmentTime(LocalDateTime appointmentTime){
+        this.appointmentTime = appointmentTime;
+    }
     @Transient
     public LocalTime getAppointmentTimeOnly(){
         return appointmentTime.toLocalTime();
+    }
+    public Doctor getAppointmentDoctor() {
+        return doctor;
+    }
+    public void setAppointmentDoctor(Doctor doctor) {
+        this.doctor = doctor;
+    }
+    public Patient getAppointmentPatient() {
+        return patient;
+    }
+    public void setAppointmentPatient(Patient patient) {
+        this.patient = patient;
+    }
+
+    public UUID getAppointmentId() {
+        return appointmentId;
     }
 }

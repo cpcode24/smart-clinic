@@ -24,11 +24,23 @@ import lombok.extern.slf4j.Slf4j;
 public class DoctorController {
     private final DoctorRepository doctorRepository;
 
+    /**
+     * Constructs a DoctorController with the provided repository.
+     *
+     * @param doctorRepository repository used to manage doctors
+     */
     public DoctorController(DoctorRepository doctorRepository) {
         super();
         this.doctorRepository = doctorRepository;
     }
 
+    /**
+     * Retrieve a doctor by its UUID.
+     *
+     * @param doctorId UUID of the doctor to fetch
+     * @return the found Doctor
+     * @throws NotFoundException if a doctor with the given id does not exist
+     */
     @GetMapping("/{doctorId}")
     @ResponseStatus(org.springframework.http.HttpStatus.OK)
     public Doctor getDoctor(@RequestBody UUID doctorId) {
@@ -42,6 +54,12 @@ public class DoctorController {
         }
     }
 
+    /**
+     * Create a new doctor. If a doctor with the same ID already exists, returns the existing entity.
+     *
+     * @param doctor Doctor object to create
+     * @return the created or existing Doctor entity
+     */
     @PostMapping
     @ResponseStatus(org.springframework.http.HttpStatus.CREATED)
     public Doctor createDoctor(@RequestBody Doctor doctor) {
@@ -56,6 +74,12 @@ public class DoctorController {
         return doctor;
     }
 
+    /**
+     * Delete a doctor by its UUID.
+     *
+     * @param doctorId UUID of the doctor to delete
+     * @throws NotFoundException if a doctor with the given id does not exist
+     */
     @DeleteMapping("/{doctorId}")
     @ResponseStatus(org.springframework.http.HttpStatus.NO_CONTENT)
     public void deleteDoctor(@RequestBody UUID doctorId) {

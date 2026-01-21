@@ -3,7 +3,6 @@ package com.cpagoui_code.smart_clinic.controllers;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

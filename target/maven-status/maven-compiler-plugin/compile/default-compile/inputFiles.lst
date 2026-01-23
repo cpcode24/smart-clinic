@@ -1,4 +1,11 @@
 /Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/SmartClinicApplication.java
+/Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/controllers/AdminController.java
+/Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/controllers/AppController.java
+/Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/controllers/AppointmentController.java
+/Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/controllers/ClinicController.java
+/Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/controllers/DoctorController.java
+/Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/controllers/PatientController.java
+/Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/controllers/PrescriptionController.java
 /Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/data/entity/Admin.java
 /Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/data/entity/Appointment.java
 /Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/data/entity/Clinic.java
@@ -6,6 +13,11 @@
 /Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/data/entity/Patient.java
 /Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/data/entity/Payment.java
 /Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/data/entity/Prescription.java
+/Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/data/repository/AdminRepository.java
 /Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/data/repository/AppointmentRepository.java
+/Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/data/repository/ClinicRepository.java
 /Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/data/repository/DoctorRepository.java
 /Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/data/repository/PatientRepository.java
+/Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/data/repository/PrescriptionRepository.java
+/Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/util/BadRequestException.java
+/Users/constant24/Desktop/smart-clinic/src/main/java/com/cpagoui_code/smart_clinic/util/NotFoundException.java

@@ -1,9 +1,10 @@
 package com.cpagoui_code.smart_clinic.controllers;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.data.mongodb.repository.Update;
+import com.cpagoui_code.smart_clinic.data.entity.Prescription;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -93,4 +94,6 @@ public class PatientController {
             throw new NotFoundException("Patient with ID " + id + " not found");
         }
     }
+
+   
 }

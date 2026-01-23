@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: com.cpagoui_code.smart_clinic.data.entity.DoctorTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.007 s <<< FAILURE! -- in com.cpagoui_code.smart_clinic.data.entity.DoctorTest
+com.cpagoui_code.smart_clinic.data.entity.DoctorTest.testSomeMethod -- Time elapsed: 0.007 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: The test case is a prototype.
+	at org.junit.jupiter.api.AssertionUtils.fail(AssertionUtils.java:42)
+	at org.junit.jupiter.api.Assertions.fail(Assertions.java:143)
+	at com.cpagoui_code.smart_clinic.data.entity.DoctorTest.testSomeMethod(DoctorTest.java:23)
+

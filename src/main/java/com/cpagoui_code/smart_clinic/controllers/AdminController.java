@@ -15,6 +15,8 @@ import com.cpagoui_code.smart_clinic.data.repository.AdminRepository;
 import com.cpagoui_code.smart_clinic.util.NotFoundException;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/admin")
@@ -33,4 +35,10 @@ public class AdminController {
         return adminRepository.findById(adminId)
                 .orElseThrow(() -> new NotFoundException("Admin not found"));
     }
+
+    @GetMapping("/admin")
+    public String getMethodName(@RequestParam String param) {
+        return new String();
+    }
+    
 }

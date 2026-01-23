@@ -7,12 +7,15 @@ import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import com.cpagoui_code.smart_clinic.data.entity.Patient;
 import com.cpagoui_code.smart_clinic.data.entity.Prescription;
+import com.cpagoui_code.smart_clinic.data.repository.PatientRepository;
 import com.cpagoui_code.smart_clinic.data.repository.PrescriptionRepository;
 import com.cpagoui_code.smart_clinic.util.NotFoundException;
 
@@ -24,10 +27,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PrescriptionController {
     private PrescriptionRepository prescriptionRepository;
+    private PatientRepository patientRepository;
 
-    public PrescriptionController(PrescriptionRepository prescriptionRepository) {
+    public PrescriptionController(PrescriptionRepository prescriptionRepository, PatientRepository patientRepository) {
         super();
         this.prescriptionRepository = prescriptionRepository;
+        this.patientRepository = patientRepository;     
     }
 
     @GetMapping("/{id}")
@@ -42,11 +47,22 @@ public class PrescriptionController {
         }  
     }
 
-    @GetMapping("/{PatientId}")
+    @GetMapping("/{PatientId}/prescriptions")
     @ResponseStatus(HttpStatus.OK)
+    public List<Prescription> getPatientPrescriptions(@PathVariable UUID patientId) throws NotFoundException {
+        Optional<Patient> patient = patientRepository.findById(patientId);
+        if (!patient.isPresent()) {
+            log.warn("No patient found with ID: {}", patientId);
+            throw new NotFoundException("Patient with ID " + patientId + " not found");
+        }
 
-    public List<Prescription> getPatientPrescriptions(@RequestBody UUID patientId) throws NotFoundException {
-        List<Prescription> prescriptions = prescriptionRepository.getPatientPrescriptions(patientId);
+        List<UUID> prescriptionIds = patient.get().getPrescriptions();
+        if (prescriptionIds.isEmpty()) {
+            log.warn("No prescriptions found for patient ID: {}", patientId);
+            return List.of();
+        }
+
+        List<Prescription> prescriptions = prescriptionRepository.findAllById(prescriptionIds);
         if (!prescriptions.isEmpty()) {
             log.info("Found prescriptions for patient ID: {}", patientId);
             return prescriptions;

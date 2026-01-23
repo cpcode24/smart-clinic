@@ -1,12 +1,16 @@
 package com.cpagoui_code.smart_clinic.data.entity;
+import java.util.List;
 import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import jakarta.persistence.CollectionTable;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
@@ -33,6 +37,11 @@ public class Patient {
     private String address;
     @Size(max = 1000)
     private String medicalHistory;
+
+    @OneToMany(mappedBy = "patient")
+    private List<Appointment> appointments;
+
+    private List<UUID> prescriptionsIds;
 
     @NotNull
     private int dateOfBirth;
@@ -82,4 +91,7 @@ public class Patient {
         this.medicalHistory = medicalHistory;
     }
 
+    public List<UUID> getPrescriptions() {
+        return prescriptionsIds;
+    }
 }

@@ -4,8 +4,6 @@ import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -93,5 +91,9 @@ public class Patient {
 
     public List<UUID> getPrescriptions() {
         return prescriptionsIds;
+    }
+
+    public String getPassword() {
+        return this.password;
     }
 }

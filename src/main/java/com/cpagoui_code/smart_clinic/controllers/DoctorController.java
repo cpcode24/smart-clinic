@@ -3,13 +3,16 @@ package com.cpagoui_code.smart_clinic.controllers;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.cpagoui_code.smart_clinic.data.entity.Doctor;
 import com.cpagoui_code.smart_clinic.data.repository.DoctorRepository;
@@ -17,8 +20,8 @@ import com.cpagoui_code.smart_clinic.util.NotFoundException;
 
 import lombok.extern.slf4j.Slf4j;
 
-@RestController
-@RequestMapping("/doctors")
+@Controller
+@RequestMapping("/doctor")
 @Slf4j
 public class DoctorController {
     private final DoctorRepository doctorRepository;
@@ -42,7 +45,7 @@ public class DoctorController {
      */
     @GetMapping("/{doctorId}")
     @ResponseStatus(org.springframework.http.HttpStatus.OK)
-    public Doctor getDoctor(@RequestBody UUID doctorId) {
+    public Doctor getDoctor(@PathVariable UUID doctorId) {
         Optional<Doctor> doctor = doctorRepository.findById(doctorId);
         if(doctor.isPresent()) {
             log.info("Found doctor with ID: {}", doctorId);
@@ -53,6 +56,22 @@ public class DoctorController {
         }
     }
 
+    @PostMapping("/login")
+    public String doLogin(@RequestParam String email, @RequestParam String password, Model model) {
+        Optional<Doctor> doctor = doctorRepository.findByEmail(email);
+        if (doctor.isPresent() && password != null && password.equals(doctor.get().getPassword())) {
+            log.info("Doctor {} logged in", email);
+            return "doctor/doctorDashboard";
+        }
+        model.addAttribute("error", "Invalid credentials");
+        return "doctor/doctorLogin";
+    }
+
+    @GetMapping("/login")
+    public String showLogin() {
+        return "doctor/doctorLogin";
+    }
+
     /**
      * Create a new doctor. If a doctor with the same ID already exists, returns the existing entity.
      *
@@ -61,7 +80,7 @@ public class DoctorController {
      */
     @PostMapping
     @ResponseStatus(org.springframework.http.HttpStatus.CREATED)
-    public Doctor createDoctor(@RequestBody Doctor doctor) {
+    public Doctor createDoctor(@RequestBody Doctor doctor, Model model) {
         Optional<Doctor> existingDoctor = doctorRepository.findById(doctor.getDoctorId());
         if(existingDoctor.isPresent()) {
             log.info("Doctor with ID: {} already exists", existingDoctor.get().getDoctorId());
@@ -70,6 +89,7 @@ public class DoctorController {
         log.info("Creating new doctor: {}", doctor);    
         doctorRepository.save(doctor);
         log.info("Created new doctor with ID: {}", doctor.getDoctorId());
+        model.addAttribute("message", "Doctor created successfully with ID: " + doctor.getDoctorId());
         return doctor;
     }
 
@@ -81,16 +101,20 @@ public class DoctorController {
      */
     @DeleteMapping("/{doctorId}")
     @ResponseStatus(org.springframework.http.HttpStatus.NO_CONTENT)
-    public void deleteDoctor(@RequestBody UUID doctorId) {
-        Optional<Doctor> doctor = doctorRepository.findById(doctorId);
+    public void deleteDoctor(@PathVariable String doctorId) {
+        Optional<Doctor> doctor = doctorRepository.findById(UUID.fromString(doctorId));
         if(doctor.isPresent()) {
             log.info("Deleting doctor with ID: {}", doctorId);
-            doctorRepository.deleteById(doctorId);
+            doctorRepository.deleteById(UUID.fromString(doctorId));
         } else {
             log.warn("No doctor found with ID: {}", doctorId);
             throw new NotFoundException("Doctor with ID " + doctorId + " not found");
         }
     }
 
-    
+    @GetMapping({"", "/"})
+    public String root() {
+        // Redirect bare /patients to the login page
+        return "redirect:/doctor/login";
+    }
 }

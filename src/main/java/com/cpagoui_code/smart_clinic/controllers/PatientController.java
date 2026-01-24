@@ -1,11 +1,11 @@
 package com.cpagoui_code.smart_clinic.controllers;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.cpagoui_code.smart_clinic.data.entity.Prescription;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.cpagoui_code.smart_clinic.data.entity.Patient;
 import com.cpagoui_code.smart_clinic.data.repository.PatientRepository;
@@ -24,8 +24,8 @@ import lombok.extern.slf4j.Slf4j;
 
 
 
-@RestController
-@RequestMapping("/patients")
+@Controller
+@RequestMapping("/patient")
 @Slf4j
 public class PatientController {
     private final PatientRepository patientRepository;
@@ -59,6 +59,22 @@ public class PatientController {
             log.warn("No patient found with ID: {}", id);
             throw new NotFoundException("Patient with ID " + id + " not found");
         }
+    }
+
+    @GetMapping("/login")
+    public String showLogin() {
+        return "patient/patientLogin";
+    }
+
+    @PostMapping("/login")
+    public String doLogin(@RequestParam String email, @RequestParam String password, Model model) {
+        Optional<Patient> patient = patientRepository.findByEmail(email);
+        if (patient.isPresent() && password != null && password.equals(patient.get().getPassword())) {
+            log.info("Patient {} logged in", email);
+            return "patient/patientDashboard";
+        }
+        model.addAttribute("error", "Invalid credentials");
+        return "patient/patientLogin";
     }
 
     @DeleteMapping("/{id}")
@@ -95,5 +111,9 @@ public class PatientController {
         }
     }
 
-   
+    @GetMapping({"", "/"})
+    public String root() {
+        // Redirect bare /patients to the login page
+        return "redirect:/patient/login";
+    }
 }

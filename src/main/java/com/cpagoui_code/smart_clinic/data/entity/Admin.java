@@ -50,4 +50,8 @@ public class Admin {
         this.password = password;
 
     }
+
+    public String getPassword() {
+        return this.password;
+    }
 }

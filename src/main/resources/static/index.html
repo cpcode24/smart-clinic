@@ -14,19 +14,36 @@
         <main>
             <div class="container">
                 <div class="wrapper">
-                    <div id="header"></div>
+                    <div id="header">
+                        <!-- Fallback header in case header.js doesn't run -->
+                        <div class="site-header" role="banner">
+                            <div class="logo">Smart Clinic</div>
+                            <!--nav class="header-nav" aria-label="Main navigation">
+                                <a href="/admin/login">Admin</a>
+                                <a href="/doctors/login">Doctor</a>
+                                <a href="/patients/login">Patient</a>
+                            </nav-->
+                        </div>
+                    </div>
+
                     <main class="main-content">
-                        <h2> Select your role </h2>
-                        <button class="" type="button" onlick="" id="">Admin</button>
-                        <button class="" type="button" onlick="" id="">Doctor</button>
-                        <button class="" type="button" onlick="" id="">Patient</button>
+                        <h2> Click on your profile to continue</h2>
+                        <p class="muted">Choose whether you are an administrator, a doctor, or a patient to continue.</p>
+
+                        <div class="role-grid" style="margin-top:20px;">
+                            <button class="role-btn" type="button"><a href="/admin/login">Admin</a></button>
+                            <button class="role-btn" type="button"><a href="/doctor/login">Doctor</a></button>
+                            <button class="role-btn" type="button"><a href="/patient/login">Patient</a></button>
+                        </div>
+
                         <div id="modal" class="modal"> 
-                            <button id="closeModal"></button>
+                            <button id="closeModal" aria-label="Close dialog"></button>
                             <div id="modal-body"></div>
                         </div>
                     </main>
-                </div>
-            </div>
-        </main>
-        <script type="module" src="../js/services/index.js" defer></script>
-    </body>
+                 </div>
+             </div>
+         </main>
+         <script type="module" src="../js/services/index.js" defer></script>
+     </body>
+</html>

@@ -100,5 +100,9 @@ public class Doctor {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    public String getPassword() {
+        return this.password;
+    }
+
 
 }

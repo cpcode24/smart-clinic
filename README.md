@@ -5,9 +5,12 @@ Clinic Management System application developed from scratch. The front end is bu
 
 ### The Smart Clinic Management System follows a three-tier web architecture, which separates the system into three distinct layers:
 
-**Presentation Tier** – The user interface, consisting of Thymeleaf templates and REST API consumers
-**Application Tier** – The Spring Boot backend that contains the controllers, services, and business logic
-**Data Tier** – The databases: MySQL for structured data and MongoDB for flexible, document-based data
+**Presentation Tier**: The user interface, consisting of Thymeleaf templates and REST API consumers
+
+**Application Tier**:  The Spring Boot backend that contains the controllers, services, and business logic
+
+**Data Tier**: The databases: MySQL for structured data and MongoDB for flexible, document based data
+
 This structure improves scalability, maintainability, and deployment flexibility. Each tier can be independently developed, tested, or scaled without impacting the others directly.
 
 ### Tech Stack
@@ -21,7 +24,7 @@ This structure improves scalability, maintainability, and deployment flexibility
 * Docker for Apps sharing across platforms
 
 ### REST APIs for scalable integration
-For modules like appointments, patient dashboards, and patient records, we expose RESTful APIs instead of using server-side views. REST allows external clients—such as mobile apps or future web apps—to communicate with the backend via lightweight HTTP and JSON.
+For modules like appointments, patient dashboards, and patient records, we expose RESTful APIs instead of using server side views. REST allows external clients such as mobile apps or future web apps to communicate with the backend via lightweight HTTP and JSON.
 
 This makes the system more extensible and interoperable, supporting real-time client applications, third-party integrations, and cross-platform access.
 

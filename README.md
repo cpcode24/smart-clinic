@@ -26,3 +26,7 @@ For modules like appointments, patient dashboards, and patient records, we expos
 This makes the system more extensible and interoperable, supporting real-time client applications, third-party integrations, and cross-platform access.
 
 <img width="1405" height="813" alt="image" src="https://github.com/user-attachments/assets/988bfe38-1d06-4aec-9efe-e1b9044aa1b4" />
+
+### App UI
+
+<img width="878" height="562" alt="Screenshot 2026-01-23 at 10 58 06 PM" src="https://github.com/user-attachments/assets/aad724af-8c20-4a8f-a1df-77800d3de409" />

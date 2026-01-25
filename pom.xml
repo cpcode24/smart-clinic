@@ -12,7 +12,7 @@
 	<artifactId>smart-clinic</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>smart-clinic</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Web portal to manage a clinic</description>
 	<url/>
 	<licenses>
 		<license/>

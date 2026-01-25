@@ -35,7 +35,7 @@ public class PatientController {
         this.patientRepository = patientRepository;
     }
 
-    @PostMapping
+    @PostMapping("/register-patient")
     @ResponseStatus(HttpStatus.CREATED )
     public Patient addPatient(@RequestBody Patient newPatient) {
         Optional<Patient> patient = Optional.ofNullable(patientRepository.findPatientById(newPatient.getId()));
@@ -66,6 +66,11 @@ public class PatientController {
         return "patient/patientLogin";
     }
 
+    @GetMapping("/register")
+    public String showRegister() {
+        return "patient/patientRegistration";
+    }
+
     @PostMapping("/login")
     public String doLogin(@RequestParam String email, @RequestParam String password, Model model) {
         Optional<Patient> patient = patientRepository.findByEmail(email);
@@ -76,6 +81,7 @@ public class PatientController {
         model.addAttribute("error", "Invalid credentials");
         return "patient/patientLogin";
     }
+
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

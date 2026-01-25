@@ -72,15 +72,20 @@ public class DoctorController {
         return "doctor/doctorLogin";
     }
 
+    @GetMapping("/register")
+    public String showRegister() {
+        return "doctor/doctorRegistration";
+    }
+
     /**
-     * Create a new doctor. If a doctor with the same ID already exists, returns the existing entity.
+     * Add a new doctor. If a doctor with the same ID already exists, returns the existing entity.
      *
      * @param doctor Doctor object to create
      * @return the created or existing Doctor entity
      */
-    @PostMapping
+    @PostMapping("register-doctor")
     @ResponseStatus(org.springframework.http.HttpStatus.CREATED)
-    public Doctor createDoctor(@RequestBody Doctor doctor, Model model) {
+    public Doctor addDoctor(@RequestBody Doctor doctor, Model model) {
         Optional<Doctor> existingDoctor = doctorRepository.findById(doctor.getDoctorId());
         if(existingDoctor.isPresent()) {
             log.info("Doctor with ID: {} already exists", existingDoctor.get().getDoctorId());

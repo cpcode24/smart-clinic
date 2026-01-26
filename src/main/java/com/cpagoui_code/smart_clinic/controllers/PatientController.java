@@ -29,11 +29,23 @@ import lombok.extern.slf4j.Slf4j;
 public class PatientController {
     private final PatientRepository patientRepository;
     
+    /**
+     * Constructs a PatientController with the provided repository.
+     *
+     * @param patientRepository repository used to manage patient data
+     */
     public PatientController(PatientRepository patientRepository) {
         super();
         this.patientRepository = patientRepository;
     }
 
+    /**
+     * Add a new patient to the system. If a patient with the same id already exists,
+     * the existing entity will be returned.
+     *
+     * @param newPatient patient data to add
+     * @return the saved or existing Patient
+     */
     @PostMapping("/register-patient")
     @ResponseStatus(HttpStatus.CREATED )
     public Patient addPatient(@RequestBody Patient newPatient) {
@@ -47,6 +59,13 @@ public class PatientController {
         }
     }
     
+    /**
+     * Retrieve a patient by their id.
+     *
+     * @param id patient id
+     * @return the found Patient
+     * @throws NotFoundException if no patient with the id exists
+     */
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Patient getPatient(@PathVariable Long id) {
@@ -60,16 +79,36 @@ public class PatientController {
         }
     }
 
+    /**
+     * Render the patient login view.
+     *
+     * @return view name for the patient login page
+     */
     @GetMapping("/login")
     public String showLogin() {
         return "patient/patientLogin";
     }
 
+    /**
+     * Render the patient registration view.
+     *
+     * @return view name for the patient registration page
+     */
     @GetMapping("/register")
     public String showRegister() {
         return "patient/patientRegistration";
     }
 
+    /**
+     * Authenticate a patient using email and password form parameters.
+     * On success returns the patient dashboard view, otherwise the login view
+     * with an error message added to the model.
+     *
+     * @param email submitted email
+     * @param password submitted password
+     * @param model Spring MVC model used to pass attributes to the view
+     * @return view name to render
+     */
     @PostMapping("/login")
     public String doLogin(@RequestParam String email, @RequestParam String password, Model model) {
         Optional<Patient> patient = patientRepository.findByEmail(email);
@@ -95,6 +134,14 @@ public class PatientController {
         }
     }
 
+    /*
+     * Update a patient by its id.
+     *
+     * @param id of the patient to update
+     * @param updatedPatient Patient object with updated information
+     * @return the updated Patient
+     * @throws NotFoundException if a patient with the given id does not exist
+     */
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Patient updatePatient(@PathVariable Long id, @RequestBody Patient updatedPatient) {
@@ -116,6 +163,11 @@ public class PatientController {
         }
     }
 
+    /**
+     * Redirect root /patient to the login page.
+     *
+     * @return redirect string to patient login
+     */
     @GetMapping({"", "/"})
     public String root() {
         // Redirect bare /patients to the login page

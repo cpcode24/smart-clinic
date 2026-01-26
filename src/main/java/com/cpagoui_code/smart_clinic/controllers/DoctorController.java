@@ -55,6 +55,13 @@ public class DoctorController {
         }
     }
 
+    /**
+     * Login a doctor.
+     *
+     * @param email email of the doctor to login string
+     * @param password password of the doctor to login string
+     * @return dashboard view if successful, login view with error otherwise
+     */
     @PostMapping("/login")
     public String doLogin(@RequestParam String email, @RequestParam String password, Model model) {
         Optional<Doctor> doctor = doctorRepository.findByEmail(email);
@@ -66,11 +73,19 @@ public class DoctorController {
         return "doctor/doctorLogin";
     }
 
+    /**
+     * Show the login page.
+     * @return login view
+     */
     @GetMapping("/login")
     public String showLogin() {
         return "doctor/doctorLogin";
     }
 
+    /**
+     * Show the registration page.
+     * @return registration view
+     */
     @GetMapping("/register")
     public String showRegister() {
         return "doctor/doctorRegistration";
@@ -116,6 +131,11 @@ public class DoctorController {
         }
     }
 
+    /**
+     * Redirect root /doctor to the login page.
+     *
+     * @return redirect to login view
+     */
     @GetMapping({"", "/"})
     public String root() {
         // Redirect bare /patients to the login page

@@ -1,20 +1,15 @@
 package com.cpagoui_code.smart_clinic.data.entity;
 
-import java.util.List;
-import java.util.UUID;
-
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 @Document(collection = "prescriptions")
 public class Prescription {
     @Id
-    private UUID prescriptionId;
+    private Long prescriptionId;
     @NotNull
     private Long appointmentId;
     @NotNull
@@ -27,9 +22,9 @@ public class Prescription {
     private String doctorNotes;
 
     @NotNull
-    private UUID patientId;
+    private Long patientId;
 
-    public UUID getPrescriptionId() {
+    public Long getPrescriptionId() {
         return prescriptionId;
     }
 

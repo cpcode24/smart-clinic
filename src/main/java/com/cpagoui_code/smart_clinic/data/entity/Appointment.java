@@ -2,9 +2,6 @@ package com.cpagoui_code.smart_clinic.data.entity;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.UUID;
-
-import org.springframework.cglib.core.Local;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,7 +16,7 @@ import jakarta.validation.constraints.NotNull;
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID appointmentId;
+    private Long appointmentId;
     @ManyToOne
     @NotNull
     private Doctor doctor;
@@ -60,7 +57,7 @@ public class Appointment {
         this.patient = patient;
     }
 
-    public UUID getAppointmentId() {
+    public Long getAppointmentId() {
         return appointmentId;
     }
 }

@@ -1,7 +1,6 @@
 package com.cpagoui_code.smart_clinic.controllers;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -50,7 +49,7 @@ public class PatientController {
     
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Patient getPatient(@PathVariable UUID id) {
+    public Patient getPatient(@PathVariable Long id) {
         Optional<Patient> patient = patientRepository.findById(id);
         if(patient.isPresent()) {
             log.info("Found patient with ID: {}", id);
@@ -85,7 +84,7 @@ public class PatientController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deletePatient(@PathVariable UUID id) {
+    public void deletePatient(@PathVariable Long id) {
         Optional<Patient> patient = patientRepository.findById(id); 
         if(patient.isPresent()) {
             log.info("Deleting patient with ID: {}", id);
@@ -98,7 +97,7 @@ public class PatientController {
 
     @PatchMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Patient updatePatient(@PathVariable UUID id, @RequestBody Patient updatedPatient) {
+    public Patient updatePatient(@PathVariable Long id, @RequestBody Patient updatedPatient) {
         Optional<Patient> patient = patientRepository.findById(id);
         if(patient.isPresent()) {
             log.info("Updating patient with ID: {}", id);

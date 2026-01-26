@@ -1,26 +1,22 @@
 package com.cpagoui_code.smart_clinic.controllers;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cpagoui_code.smart_clinic.data.entity.Appointment;
 import com.cpagoui_code.smart_clinic.data.repository.AppointmentRepository;
+import com.cpagoui_code.smart_clinic.util.NotFoundException;
 
 import lombok.extern.slf4j.Slf4j;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import com.cpagoui_code.smart_clinic.util.NotFoundException;
 
 
 
@@ -63,13 +59,13 @@ public class AppointmentController {
     /**
      * Retrieve an appointment by its ID.
      *
-     * @param appointmentId UUID of the appointment to fetch
+     * @param appointmentId Long of the appointment to fetch
      * @return the found Appointment
      * @throws NotFoundException if appointment is not found
      */
     @GetMapping("/{appointmentId}")
     @ResponseStatus(HttpStatus.OK)
-    public Appointment getAppointment(@RequestBody UUID appointmentId) throws NotFoundException {
+    public Appointment getAppointment(@RequestBody Long appointmentId) throws NotFoundException {
         Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
         if(appointment.isPresent()) {
             log.info("Found appointment with ID: {}", appointmentId);
@@ -83,12 +79,12 @@ public class AppointmentController {
     /**
      * Delete an appointment by its ID.
      *
-     * @param appointmentId UUID of the appointment to delete
+     * @param appointmentId Long of the appointment to delete
      * @throws NotFoundException if appointment is not found
      */
     @DeleteMapping("/{appointmentId}")
     @ResponseStatus(HttpStatus.RESET_CONTENT)
-    public void deleteAppointment(@RequestBody UUID appointmentId) throws NotFoundException {
+    public void deleteAppointment(@RequestBody Long appointmentId) throws NotFoundException {
         Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
         if(appointment.isPresent()) {
             log.info("Deleting appointment with ID: {}", appointmentId);

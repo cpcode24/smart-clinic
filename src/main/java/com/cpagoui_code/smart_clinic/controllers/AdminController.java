@@ -1,7 +1,6 @@
 package com.cpagoui_code.smart_clinic.controllers;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -33,7 +32,7 @@ public class AdminController {
 
     @GetMapping("/{adminId}")
     @ResponseStatus(HttpStatus.OK)
-    public Admin getAdminById(@PathVariable UUID adminId) {
+    public Admin getAdminById(@PathVariable Long adminId) {
         return adminRepository.findById(adminId)
                 .orElseThrow(() -> new NotFoundException("Admin not found"));
     }

@@ -1,7 +1,6 @@
 package com.cpagoui_code.smart_clinic.controllers;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,22 +49,22 @@ public class ClinicController {
     }
 
     /**
-     * Retrieve a clinic by its UUID.
+     * Retrieve a clinic by its Long.
      *
-     * @param id UUID of the clinic to fetch
+     * @param id Long of the clinic to fetch
      * @return the found Clinic
      * @throws NotFoundException if a clinic with the given id does not exist
      */
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Clinic getClinic(@PathVariable UUID id) {
-        Optional<Clinic> clinic = clinicRepository.findById(id);
+    public Clinic getClinic(@PathVariable Long clinicId) {
+        Optional<Clinic> clinic = clinicRepository.findById(clinicId);
         if(clinic.isPresent()) {
-            log.info("Found clinic with ID: {}", id);
+            log.info("Found clinic with ID: {}", clinicId);
             return clinic.get();
         } else {
-            log.warn("No clinic found with ID: {}", id);
-            throw new NotFoundException("Clinic with ID " + id + " not found");
+            log.warn("No clinic found with ID: {}", clinicId);
+            throw new NotFoundException("Clinic with ID " + clinicId + " not found");
         }
     }
 }

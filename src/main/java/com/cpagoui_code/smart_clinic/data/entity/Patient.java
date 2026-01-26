@@ -1,6 +1,5 @@
 package com.cpagoui_code.smart_clinic.data.entity;
 import java.util.List;
-import java.util.UUID;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -18,7 +17,7 @@ import jakarta.validation.constraints.Size;
 public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private UUID patientId;
+    private Long patientId;
     @NotNull
     @Size(min = 3, max = 100)
     private String name;
@@ -39,7 +38,7 @@ public class Patient {
     @OneToMany(mappedBy = "patient")
     private List<Appointment> appointments;
 
-    private List<UUID> prescriptionsIds;
+    private List<Long> prescriptionsIds;
 
     @NotNull
     private int dateOfBirth;
@@ -52,10 +51,10 @@ public class Patient {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public UUID getId() {
+    public Long getId() {
         return patientId;
     }   
-    public void setId(UUID patientId) {
+    public void setId(Long patientId) {
         this.patientId = patientId;
     }
     public String getName() {
@@ -89,7 +88,7 @@ public class Patient {
         this.medicalHistory = medicalHistory;
     }
 
-    public List<UUID> getPrescriptions() {
+    public List<Long> getPrescriptions() {
         return prescriptionsIds;
     }
 

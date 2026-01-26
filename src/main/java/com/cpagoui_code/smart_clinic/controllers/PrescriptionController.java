@@ -2,16 +2,14 @@ package com.cpagoui_code.smart_clinic.controllers;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.cpagoui_code.smart_clinic.data.entity.Patient;
 import com.cpagoui_code.smart_clinic.data.entity.Prescription;
@@ -36,7 +34,7 @@ public class PrescriptionController {
     }
 
     @GetMapping("/{id}")
-    public Prescription getMethodName(@RequestParam UUID prescriptionId) throws NotFoundException {
+    public Prescription getMethodName(@RequestParam Long prescriptionId) throws NotFoundException {
         Optional<Prescription> prescription = prescriptionRepository.findById(prescriptionId);
         if (prescription.isPresent()) {
             log.info("Found prescription with ID: {}", prescriptionId);
@@ -49,14 +47,14 @@ public class PrescriptionController {
 
     @GetMapping("/{PatientId}/prescriptions")
     @ResponseStatus(HttpStatus.OK)
-    public List<Prescription> getPatientPrescriptions(@PathVariable UUID patientId) throws NotFoundException {
+    public List<Prescription> getPatientPrescriptions(@PathVariable Long patientId) throws NotFoundException {
         Optional<Patient> patient = patientRepository.findById(patientId);
         if (!patient.isPresent()) {
             log.warn("No patient found with ID: {}", patientId);
             throw new NotFoundException("Patient with ID " + patientId + " not found");
         }
 
-        List<UUID> prescriptionIds = patient.get().getPrescriptions();
+        List<Long> prescriptionIds = patient.get().getPrescriptions();
         if (prescriptionIds.isEmpty()) {
             log.warn("No prescriptions found for patient ID: {}", patientId);
             return List.of();

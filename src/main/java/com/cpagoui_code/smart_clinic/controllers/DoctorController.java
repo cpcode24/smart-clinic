@@ -1,7 +1,6 @@
 package com.cpagoui_code.smart_clinic.controllers;
 
 import java.util.Optional;
-import java.util.UUID;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -37,15 +36,15 @@ public class DoctorController {
     }
 
     /**
-     * Retrieve a doctor by its UUID.
+     * Retrieve a doctor by its Long.
      *
-     * @param doctorId UUID of the doctor to fetch
+     * @param doctorId Long of the doctor to fetch
      * @return the found Doctor
      * @throws NotFoundException if a doctor with the given id does not exist
      */
     @GetMapping("/{doctorId}")
     @ResponseStatus(org.springframework.http.HttpStatus.OK)
-    public Doctor getDoctor(@PathVariable UUID doctorId) {
+    public Doctor getDoctor(@PathVariable Long doctorId) {
         Optional<Doctor> doctor = doctorRepository.findById(doctorId);
         if(doctor.isPresent()) {
             log.info("Found doctor with ID: {}", doctorId);
@@ -99,18 +98,18 @@ public class DoctorController {
     }
 
     /**
-     * Delete a doctor by its UUID.
+     * Delete a doctor by its Long.
      *
-     * @param doctorId UUID of the doctor to delete
+     * @param doctorId Long of the doctor to delete
      * @throws NotFoundException if a doctor with the given id does not exist
      */
     @DeleteMapping("/{doctorId}")
     @ResponseStatus(org.springframework.http.HttpStatus.NO_CONTENT)
-    public void deleteDoctor(@PathVariable String doctorId) {
-        Optional<Doctor> doctor = doctorRepository.findById(UUID.fromString(doctorId));
+    public void deleteDoctor(@PathVariable Long doctorId) {
+        Optional<Doctor> doctor = doctorRepository.findById(doctorId);
         if(doctor.isPresent()) {
             log.info("Deleting doctor with ID: {}", doctorId);
-            doctorRepository.deleteById(UUID.fromString(doctorId));
+            doctorRepository.deleteById(doctorId);
         } else {
             log.warn("No doctor found with ID: {}", doctorId);
             throw new NotFoundException("Doctor with ID " + doctorId + " not found");

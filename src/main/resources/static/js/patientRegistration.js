@@ -7,7 +7,7 @@ document.getElementById('patientRegistrationForm').addEventListener('submit', fu
         jsonData[key] = value;
     });
 
-    fetch('/patient/register', { // Your Spring API endpoint
+    fetch('/patient/register-patient', { // Your Spring API endpoint
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

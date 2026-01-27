@@ -1,8 +1,12 @@
 package com.cpagoui_code.smart_clinic.controllers;
 
+import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -28,15 +32,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PatientController {
     private final PatientRepository patientRepository;
-    
+    private final PasswordEncoder passwordEncoder;
     /**
      * Constructs a PatientController with the provided repository.
      *
      * @param patientRepository repository used to manage patient data
      */
-    public PatientController(PatientRepository patientRepository) {
+    public PatientController(PatientRepository patientRepository, PasswordEncoder passwordEncoder) {
         super();
         this.patientRepository = patientRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -54,6 +59,7 @@ public class PatientController {
             log.info("Patient with ID: {} already exists", patient.get().getId());
             return patient.get();
         } else {
+            newPatient.setPassword(passwordEncoder.encode(newPatient.getPassword()));
             log.info("Adding patient: {}", newPatient);
             return patientRepository.save(newPatient);
         }
@@ -172,5 +178,31 @@ public class PatientController {
     public String root() {
         // Redirect bare /patients to the login page
         return "redirect:/patient/login";
+    }
+
+
+    public boolean isPassword(Object password, Long id) {
+        Patient patient = patientRepository.findPatientById(id);
+        String stringPassword = password.toString();
+        return passwordEncoder.matches(stringPassword, patient.getPassword());
+    }
+
+    public boolean updatePassword(Map<String, String> passwords, Long id) {
+        Patient patient = patientRepository.findPatientById(id);
+        String oldPassword = passwords.get("oldPassword");
+        String newPassword = passwords.get("newPassword");
+
+        if (!passwordEncoder.matches(oldPassword, patient.getPassword())) {
+             return false;
+        }
+            patient.setPassword(passwordEncoder.encode(newPassword));
+            //updateEntity(patient);
+            return true;
+
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 }

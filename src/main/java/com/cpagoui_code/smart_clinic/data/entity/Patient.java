@@ -1,6 +1,8 @@
 package com.cpagoui_code.smart_clinic.data.entity;
 import java.util.List;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Entity;
@@ -23,6 +25,7 @@ public class Patient {
     private String name;
     @Email
     @Size(min = 3, max = 100)
+    @UniqueElements
     private String email;
     @Size(min = 6)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -94,5 +97,8 @@ public class Patient {
 
     public String getPassword() {
         return this.password;
+    }
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

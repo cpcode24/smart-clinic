@@ -1,11 +1,15 @@
 package com.cpagoui_code.smart_clinic.controllers;
 
+import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.cpagoui_code.smart_clinic.data.entity.Doctor;
+import com.cpagoui_code.smart_clinic.data.entity.Patient;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import com.cpagoui_code.smart_clinic.data.repository.DoctorRepository;
 import com.cpagoui_code.smart_clinic.util.NotFoundException;
 
@@ -24,15 +32,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DoctorController {
     private final DoctorRepository doctorRepository;
-
+    private final PasswordEncoder passwordEncoder;
     /**
      * Constructs a DoctorController with the provided repository.
      *
      * @param doctorRepository repository used to manage doctors
      */
-    public DoctorController(DoctorRepository doctorRepository) {
+    public DoctorController(DoctorRepository doctorRepository, PasswordEncoder passwordEncoder) {
         super();
         this.doctorRepository = doctorRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     /**
@@ -121,14 +130,60 @@ public class DoctorController {
     @DeleteMapping("/{doctorId}")
     @ResponseStatus(org.springframework.http.HttpStatus.NO_CONTENT)
     public void deleteDoctor(@PathVariable Long doctorId) {
-        Optional<Doctor> doctor = doctorRepository.findById(doctorId);
-        if(doctor.isPresent()) {
+        Doctor doctor = doctorRepository.findDoctorById(doctorId);
+        if(doctor != null) {
             log.info("Deleting doctor with ID: {}", doctorId);
             doctorRepository.deleteById(doctorId);
         } else {
             log.warn("No doctor found with ID: {}", doctorId);
             throw new NotFoundException("Doctor with ID " + doctorId + " not found");
         }
+    }
+
+    /**
+     * Update a doctor's password.
+     *
+     * @param passwords map containing "oldPassword" and "newPassword"
+     * @param id doctor id
+     * @return true if password updated successfully, false if old password does not match
+     */
+    @PatchMapping("/{id}/update-password")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean updatePassword(@RequestBody Map<String, String> passwords, @PathVariable Long id) {
+        Doctor doctor = doctorRepository.findDoctorById(id);
+        String oldPassword = passwords.get("oldPassword");
+        String newPassword = passwords.get("newPassword");
+
+        if (!passwordEncoder.matches(oldPassword, doctor.getPassword())) {
+             return false;
+        }
+            doctor.setPassword(passwordEncoder.encode(newPassword));
+            //updateEntity(doctor);
+            return true;
+    }
+
+     /**
+     * Check if the provided password matches the stored password for the patient.
+     *
+     * @param password password to check
+     * @param id doctor id
+     * @return true if passwords match, false otherwise
+     */
+    @PostMapping("/{id}/check-password")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean isPassword(@RequestBody String password, @PathVariable Long id) {
+        Doctor doctor = doctorRepository.findDoctorById(id);
+        return passwordEncoder.matches(password, doctor.getPassword());
+    }
+
+    /**
+     * Password encoder bean.
+     *
+     * @return PasswordEncoder
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     /**

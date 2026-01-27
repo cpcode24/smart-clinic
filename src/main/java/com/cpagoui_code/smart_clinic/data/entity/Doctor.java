@@ -103,5 +103,9 @@ public class Doctor {
         return this.password;
     }
 
+    public void setPassword(String newPassword) {
+        this.password = newPassword;
+    }
+
 
 }

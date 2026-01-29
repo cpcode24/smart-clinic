@@ -54,4 +54,8 @@ public class Admin {
     public String getPassword() {
         return this.password;
     }
+
+    public String getEmail() {
+        return this.email;
+    }
 }

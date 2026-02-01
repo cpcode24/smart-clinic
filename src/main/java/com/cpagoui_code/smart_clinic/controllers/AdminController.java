@@ -29,12 +29,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class AdminController {
     private AdminRepository adminRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder adminPassEncoder;
 
-    public AdminController(AdminRepository adminRepository, PasswordEncoder passwordEncoder) {
+    public AdminController(AdminRepository adminRepository, PasswordEncoder adminPassEncoder) {
         super();
         this.adminRepository = adminRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.adminPassEncoder = adminPassEncoder;
     }
 
     @GetMapping("/{adminId}")
@@ -57,7 +57,7 @@ public class AdminController {
     @PostMapping("/login")
     public String doLogin(@RequestParam String email, @RequestParam String password, Model model) {
         Optional<Admin> admin = adminRepository.findByEmail(email);
-        if (admin.isPresent() && password != null && passwordEncoder.matches(password, admin.get().getPassword())) {
+        if (admin.isPresent() && password != null && adminPassEncoder.matches(password, admin.get().getPassword())) {
             log.info("Admin {} logged in", email);
             return "admin/adminDashboard";
         }
@@ -85,7 +85,7 @@ public class AdminController {
             return existing.get();
         }
         // encode password before saving
-        newAdmin.setPassword(passwordEncoder.encode(newAdmin.getPassword()));
+        newAdmin.setPassword(adminPassEncoder.encode(newAdmin.getPassword()));
         adminRepository.save(newAdmin);
         model.addAttribute("message", "Admin created successfully");
         return newAdmin;
@@ -111,10 +111,10 @@ public class AdminController {
         if (admin == null) return false;
         String oldPassword = passwords.get("oldPassword");
         String newPassword = passwords.get("newPassword");
-        if (!passwordEncoder.matches(oldPassword, admin.getPassword())) {
+        if (!adminPassEncoder.matches(oldPassword, admin.getPassword())) {
             return false;
         }
-        admin.setPassword(passwordEncoder.encode(newPassword));
+        admin.setPassword(adminPassEncoder.encode(newPassword));
         adminRepository.save(admin);
         return true;
     }
@@ -124,7 +124,7 @@ public class AdminController {
     public boolean isPassword(@RequestBody String password, @PathVariable Long id) {
         Admin admin = adminRepository.findById(id).orElse(null);
         if (admin == null) return false;
-        return passwordEncoder.matches(password, admin.getPassword());
+        return adminPassEncoder.matches(password, admin.getPassword());
     }
     
     @GetMapping({"", "/"})

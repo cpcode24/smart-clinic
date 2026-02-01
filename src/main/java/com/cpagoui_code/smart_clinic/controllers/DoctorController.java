@@ -3,8 +3,8 @@ package com.cpagoui_code.smart_clinic.controllers;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,10 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.cpagoui_code.smart_clinic.data.entity.Doctor;
-import com.cpagoui_code.smart_clinic.data.entity.Patient;
-
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import com.cpagoui_code.smart_clinic.data.repository.DoctorRepository;
 import com.cpagoui_code.smart_clinic.util.NotFoundException;
 
@@ -174,16 +170,6 @@ public class DoctorController {
     public boolean isPassword(@RequestBody String password, @PathVariable Long id) {
         Doctor doctor = doctorRepository.findDoctorById(id);
         return passwordEncoder.matches(password, doctor.getPassword());
-    }
-
-    /**
-     * Password encoder bean.
-     *
-     * @return PasswordEncoder
-     */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 
     /**

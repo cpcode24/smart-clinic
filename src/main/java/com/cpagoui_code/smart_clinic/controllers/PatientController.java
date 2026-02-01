@@ -3,9 +3,7 @@ package com.cpagoui_code.smart_clinic.controllers;
 import java.util.Map;
 import java.util.Optional;
 
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,16 +30,16 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class PatientController {
     private final PatientRepository patientRepository;
-    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder patientPasswordEncoder;
     /**
      * Constructs a PatientController with the provided repository.
      *
      * @param patientRepository repository used to manage patient data
      */
-    public PatientController(PatientRepository patientRepository, PasswordEncoder passwordEncoder) {
+    public PatientController(PatientRepository patientRepository, PasswordEncoder newPasswordEncoder) {
         super();
         this.patientRepository = patientRepository;
-        this.passwordEncoder = passwordEncoder;
+        this.patientPasswordEncoder = newPasswordEncoder;
     }
 
     /**
@@ -59,7 +57,7 @@ public class PatientController {
             log.info("Patient with ID: {} already exists", patient.get().getId());
             return patient.get();
         } else {
-            newPatient.setPassword(passwordEncoder.encode(newPatient.getPassword()));
+            newPatient.setPassword(patientPasswordEncoder.encode(newPatient.getPassword()));
             log.info("Adding patient: {}", newPatient);
             return patientRepository.save(newPatient);
         }
@@ -192,7 +190,7 @@ public class PatientController {
     public boolean isPassword(@RequestBody Object password, @PathVariable Long id) {
         Patient patient = patientRepository.findPatientById(id);
         String stringPassword = password.toString();
-        return passwordEncoder.matches(stringPassword, patient.getPassword());
+        return patientPasswordEncoder.matches(stringPassword, patient.getPassword());
     }
 
     /**
@@ -209,10 +207,10 @@ public class PatientController {
         String oldPassword = passwords.get("oldPassword");
         String newPassword = passwords.get("newPassword");
 
-        if (!passwordEncoder.matches(oldPassword, patient.getPassword())) {
+        if (!patientPasswordEncoder.matches(oldPassword, patient.getPassword())) {
              return false;
         }
-            patient.setPassword(passwordEncoder.encode(newPassword));
+            patient.setPassword(patientPasswordEncoder.encode(newPassword));
             //updateEntity(patient);
             return true;
 
@@ -223,8 +221,8 @@ public class PatientController {
      *
      * @return PasswordEncoder
      */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    // @Bean
+    // public PasswordEncoder patientPasswordEncoder() {
+    //     return new BCryptPasswordEncoder();
+    // }
 }

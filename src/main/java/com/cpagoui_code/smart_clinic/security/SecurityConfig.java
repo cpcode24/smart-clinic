@@ -3,6 +3,8 @@ package com.cpagoui_code.smart_clinic.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
@@ -32,19 +34,31 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/", "/admin/**", "/appointment/**", "/doctor/**", "/clinic/**").hasAuthority("ADMIN")
-                .anyRequest().authenticated()
-                .requestMatchers("/", "/patient/**", "/appointment/**", "/doctor/**").hasAuthority("USER")
-                .anyRequest().authenticated()
-                .requestMatchers("/", "/home").permitAll()
+                // public resources and pages
+                .requestMatchers("/", "/home", "/login", "/assets/**", "/js/**", "/css/**", "/images/**").permitAll()
+                // admin-only endpoints
+                .requestMatchers("/admin/**", "/clinic/**").hasAuthority("ADMIN")
+                // user endpoints (patients/doctors)
+                .requestMatchers("/patient/**", "/patients/**", "/doctor/**", "/doctors/**", "/appointment/**").hasAnyAuthority("USER","ADMIN")
+                // any other request must be authenticated
                 .anyRequest().authenticated()
             )
             .formLogin((form) -> form
                 .loginPage("/login")
                 .permitAll()
-            );
+            )
+            .logout((logout) -> logout.permitAll());
        
         return http.build();
+    }
+
+    /**
+     * Provide a PasswordEncoder bean so controllers and services can inject it.
+     * Using BCrypt for password hashing.
+     */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 }

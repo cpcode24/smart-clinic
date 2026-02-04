@@ -127,9 +127,9 @@ public class AdminController {
         return adminPassEncoder.matches(password, admin.getPassword());
     }
     
-    @GetMapping({"", "/"})
-    public String root() {
-        // Redirect bare /patients to the login page
-        return "redirect:/admin/login";
-    }
+    // @GetMapping({"", "/"})
+    // public String root() {
+    //     // Redirect bare /patients to the login page
+    //     return "redirect:/admin/login";
+    // }
 }
